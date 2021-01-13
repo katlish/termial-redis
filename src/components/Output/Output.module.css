@@ -1,0 +1,6 @@
+.Output {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+    margin: 0 1rem;
+}

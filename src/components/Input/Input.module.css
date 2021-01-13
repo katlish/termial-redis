@@ -1,0 +1,47 @@
+.Input {
+    margin: 1rem;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.inputElement{
+    background: inherit;
+    border: none;
+    outline: none;
+    color: inherit;
+    font-size: inherit;
+    font: inherit;
+    text-shadow: inherit;
+    width: 100%;
+    caret-color: white;
+}
+
+.cursor {
+	position: relative;
+}
+.cursor	i {
+	position: absolute;
+	width: 1px;
+	height: 80%;
+	background-color: white;
+	left: 5px;
+	top: 10%;
+    animation-name: blink;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    opacity: 1;
+    margin-left: 6px;
+}
+
+.cursor input:focus + i {
+	display: none;
+}
+
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
