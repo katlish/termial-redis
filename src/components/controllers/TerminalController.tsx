@@ -29,31 +29,31 @@ export interface CommandPayload{
 
 
 function TerminalController({childrenAsFunction}: IControllerProps){
-    try {
       const { value:inputValue, bind:bindInputValue, reset:resetInputValue } = useInput('');
       const [stateTerminal, dispatch] = useReducer(inputReducer, {terminalHistory: []});
-      console.log("stateTermial --- ", stateTerminal);
-  
+      console.log("stateTermial --- ", stateTerminal.terminalHistory);
+      
+      //TODO: bug!!! - stateTerminal updated twice
       const handleSubmit = (evt: any) :void => {
           evt.preventDefault();
           const parsedInput: ActionType = inputParser(inputValue);
+          console.log("stateTerminal BEFORE dispatch - ", stateTerminal.terminalHistory)
   
-          dispatch({
-            type: parsedInput.type,
-            payload: parsedInput.payload
-          });
+          dispatch({...parsedInput});
           resetInputValue();
+          console.log("stateTerminal AFTER dispatch - ", stateTerminal.terminalHistory)
       }
       
 
-      return <>{childrenAsFunction({ 
-        outputResults: stateTerminal.terminalHistory,  
-        handleSubmit,
-        bind: bindInputValue })}</>;
-
-    }catch(e){
-      throw e; 
-    }
+      return (
+      <>
+        {console.log("STATE IN RETURN - ",stateTerminal.terminalHistory)}
+        {childrenAsFunction({ 
+          outputResults: stateTerminal.terminalHistory,  
+          handleSubmit,
+          bind: bindInputValue 
+          })}
+      </>);
   }
 
   export default TerminalController;

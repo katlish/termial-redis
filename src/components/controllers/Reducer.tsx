@@ -5,24 +5,30 @@ export enum CommandType {
     GET = 'get',
     DELETE = 'del'
 }
-  
+
 export function inputReducer(state: StateType, action: ActionType) : StateType{
+    console.log("inputReducer will push into state - ",state.terminalHistory);
     let newHistory: TerminalHistoryLog[] = state.terminalHistory;
     let newRequest: TerminalHistoryLog;
     let storageResp;
     const {type, payload} = {...action};
     let commandType = type;
     commandType = commandType.toLowerCase();
+    console.log("inputReducer will push into state - ",state.terminalHistory);
 
     switch (commandType) {
       case CommandType.SET:
         if (!payload.value){
           newRequest = {req: `${type} ${payload.key} ${payload.value}`, res: "ERROR - provide the value"};
         }else{
+          console.log("CommandType.SET - ",state.terminalHistory);
           localStorage.setItem(payload.key, payload.value);
           newRequest = {req: `${type} ${payload.key} ${payload.value}`, res: "OK"};
         } 
+        console.log("state before push -",state.terminalHistory);
         newHistory.push(newRequest);
+        console.log("state after push -",state.terminalHistory);
+
         return {
           terminalHistory: newHistory
         }
