@@ -33,6 +33,7 @@ function TerminalController({childrenAsFunction}: IControllerProps){
       const [stateTerminal, dispatch] = useReducer(inputReducer, {terminalHistory: []});
       console.log("stateTermial --- ", stateTerminal.terminalHistory);
       
+
       //TODO: bug!!! - stateTerminal updated twice
       const handleSubmit = (evt: any) :void => {
           evt.preventDefault();
@@ -51,7 +52,7 @@ function TerminalController({childrenAsFunction}: IControllerProps){
         {childrenAsFunction({ 
           outputResults: stateTerminal.terminalHistory,  
           handleSubmit,
-          bind: bindInputValue 
+          bind: bindInputValue
           })}
       </>);
   }

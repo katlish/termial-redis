@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
 import classes from "./Input.module.css";
 
 export interface IInputProps {
@@ -8,15 +8,20 @@ export interface IInputProps {
   
 
 function Input({handleSubmit, bind}:IInputProps){
+      const inputRef = useRef<HTMLInputElement>();
+      
+      useEffect(() => {
+        if(inputRef && inputRef.current) {
+            inputRef.current.focus();
+        }
+      }, []);
+      
       return (
         <div className={classes.Input}>
             <form data-testid="input-form" onSubmit={handleSubmit}>
                 <label className={classes.label}>
                     {`>>>`}
-                    <div className={classes.cursor}>
-                        <input className={classes.inputElement} name="inputCompInput" type="text" {...bind} />
-                        <i></i>
-                    </div>
+                    <input className={classes.inputElement} ref={inputRef} name="inputCompInput" type="text" {...bind} />
                 </label>
             </form>
         </div>
